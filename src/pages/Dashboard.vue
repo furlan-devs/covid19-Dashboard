@@ -9,7 +9,7 @@
 
     <div class="main-section">
       <div class="left-column">
-        <Data />
+        <Data :filteredData="filteredData"></Data>
       </div>
 
       <div class="right-column">
@@ -34,6 +34,21 @@ export default {
     Header,
     Filter,
     Data
+  },
+  data() {
+    return {
+      filteredData: []
+    }
+  },
+  methods: {
+    fetchData(filter) {
+      const apiUrl = `https://api.covid19api.com/country/${filter.country}?from=${filter.from}&to=${filter.to}`
+      fetch(apiUrl)
+        .then(response => response.json())
+        .then(data => {
+          this.filteredData = data
+        })
+    }
   }
 };
 </script>
@@ -63,19 +78,29 @@ export default {
 }
 
 .left-column {
+  
   grid-column: 1 / 2;
-  background-color: lightskyblue
+  width: 45vw; 
+  height: 39vh; 
+  /* overflow: auto;  */
+  margin-left: auto;
 }
 
 .right-column {
   grid-column: 2 / 3;
-  background-color: lightblue
+  background-color: lightblue;
+  width: 45vw; 
+  height: 39vh; 
+  
 }
 
 .bottom-row {
+  margin: 0 auto;
   grid-column: 1 / -1;
   grid-row: 3 / 4;
-  background-color: lightgreen
+  background-color: lightgreen;
+  width: 90vw; 
+  height: 38vh; 
 
 }
 
