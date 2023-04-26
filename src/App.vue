@@ -1,12 +1,16 @@
-<script setup>
-import HelloWorld from './components/HelloWorld.vue'
-import Dashboard from './components/Dashboard.vue'
-</script>
-
 <template>
-  <Dashboard />
+  <div id="app">
+    <Dashboard>test</Dashboard>
+  </div>
 </template>
 
-<style scoped>
+<script>
+import Dashboard from './pages/Dashboard.vue'
 
-</style>
+
+export default {
+  components: {
+    Dashboard,
+  }
+}
+</script>
