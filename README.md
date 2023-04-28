@@ -4,4 +4,4 @@
 
 - Clone o repositório
 - Instalar as dependencias com 'npm i'
-- startar com 'npm run dev'
+- Startar com 'npm run dev'
