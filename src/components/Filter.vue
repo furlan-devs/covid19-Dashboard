@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class='filter-container'>
       <label>País:</label>
       <select v-model="selectedCountry">
         <option v-for="country in countries" :value="country.Slug" :key="country.Slug">{{ country.Country }}</option>
@@ -13,6 +13,7 @@
   </template>
   
   <script>
+  import axios from 'axios'
   export default {
     data() {
       return {
@@ -27,13 +28,15 @@
     },
     methods: {
       fetchCountries() {
-        fetch('https://api.covid19api.com/countries')
-          .then(response => response.json())
-          .then(data => {
-            this.countries = data
-          })
-      },
-      filterData() {
+        axios.get('https://api.covid19api.com/countries')
+        .then(response => {
+          this.countries = response.data
+        })
+        .catch(error => {
+          console.error(error)
+        })
+},
+filterData() {
         this.$emit('filter-data', {
           country: this.selectedCountry,
           from: this.fromDate + 'T00:00:00Z',
@@ -50,8 +53,7 @@
   flex-wrap: wrap;
   justify-content: space-between;
   align-items: center;
-  background-color: #f5f5f5;
-  padding: 20px;
+  padding: 0 20px 20px 20px;
   border-radius: 10px;
 }
 
@@ -102,13 +104,4 @@ button:hover {
 }
 
 
-
-@media (max-width: 768px) {
-  select,
-  input[type="date"],
-  button {
-    width: 100%;
-    margin-top: 10px;
-  }
-}
 </style>

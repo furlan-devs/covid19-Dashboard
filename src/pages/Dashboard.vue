@@ -1,39 +1,47 @@
 <template>
-    <Header title="Dashboard"/>
-
+  <Header title="Dashboard" />
   <div class="dashboard">
+<div class="filters-container">
+</div>
 
-    <div class="filters-container">
-      <Filter @filter-data="fetchData"></Filter>
-    </div>
-
-    <div class="main-section">
-      <div class="left-column">
-        <Data :filteredData="filteredData"></Data>
-      </div>
-
-      <div class="right-column">
-        <!-- Adicione conteúdo para a coluna direita aqui -->
-      </div>
-
-      <div class="bottom-row">
-        <!-- Adicione conteúdo para a linha inferior aqui -->
-      </div>
-    </div>
+<div class="main-section">
+  <div class="top-left-column">
+    <CovidCounter />
   </div>
-</template>
 
+  <div class="top-right-column">
+    <LastTenDaysData country-slug="brazil" />
+  </div>
+
+  <div class="bottom-left-column">
+    <Filter @filter-data="fetchData"></Filter>
+    <Data :filteredData="filteredData"></Data>
+  </div>
+
+  <div class="bottom-right-column">
+    <Map></Map>
+  </div>
+
+</div>
+</div>
+</template>
 <script>
 import Header from '../components/Header.vue'
 import Filter from '../components/Filter.vue'
 import Data from '../components/Data.vue'
+import CovidCounter  from '../components/CovidCounter.vue'
+import LastTenDaysData   from '../components/LastTenDaysData.vue'
+import Map   from '../components/Map.vue'
 
 export default {
   name: "Dashboard",
   components: {
     Header,
     Filter,
-    Data
+    Data,
+    CovidCounter,
+    LastTenDaysData,
+    Map
   },
   data() {
     return {
@@ -52,7 +60,6 @@ export default {
   }
 };
 </script>
-
 <style>
 .dashboard {
   display: flex;
@@ -60,13 +67,10 @@ export default {
   height: calc(100vh - 5.75rem);
   width: calc(100vw - 5rem);
   margin: 0 auto;
-  background-color: gray;
-
 }
 
 .filters-container {
   padding: 16px;
-  background-color: lightpink;
   margin: 0 auto;
 
 }
@@ -74,40 +78,48 @@ export default {
 .main-section {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  grid-template-rows: auto auto 1fr;
+  grid-template-rows: 1fr 1fr;
+  gap: 16px;
 }
 
-.left-column {
-  
+.top-left-column {
   grid-column: 1 / 2;
-  width: 45vw; 
+  grid-row: 1 / 2;
+  width: 100%; 
   height: 39vh; 
-  /* overflow: auto;  */
-  margin-left: auto;
+
 }
 
-.right-column {
+.top-right-column {
   grid-column: 2 / 3;
-  background-color: lightblue;
-  width: 45vw; 
+  grid-row: 1 / 2;
+  width: 100%; 
   height: 39vh; 
+  border: 1px solid lightgray;
+  border-radius: 10px;
+  background-color: lightgray;
+
+
   
 }
 
-.bottom-row {
-  margin: 0 auto;
-  grid-column: 1 / -1;
-  grid-row: 3 / 4;
-  background-color: lightgreen;
-  width: 90vw; 
-  height: 38vh; 
+.bottom-left-column {
+  grid-column: 1 / 2;
+  grid-row: 2 / 3;
+  width: 100%; 
+  height: 39vh; 
 
 }
 
-.left-column,
-.right-column,
-.bottom-row {
-  padding: 16px;
-  border: 1px solid #ccc;
+.bottom-right-column {
+  grid-column: 2 / 3;
+  grid-row: 2 / 3;
+  width: 100%; 
+  height: 39vh; 
+  border: 1px solid lightgray;
+  background-color: lightcyan;
+  border-radius: 10px;
+
 }
+
 </style>
