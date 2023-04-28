@@ -3,5 +3,5 @@
 ## Instruções
 
 - Clone o repositório
-- Instalar as dependendias com 'npm i'
+- Instalar as dependencias com 'npm i'
 - startar com 'npm run dev'
